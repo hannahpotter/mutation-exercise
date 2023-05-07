@@ -260,6 +260,13 @@
     </target>
 
     <target name="coverageReportOriginal" description="Create coverage report">
+        <cobertura-merge datafile="${dir.cov_original}/${testNo}/cobertura.ser">
+            <fileset dir=".">
+                <include name="${dir.cov_original}/${testNo}/cobertura.ser" />
+                <include name="cobertura.ser" />
+            </fileset>
+        </cobertura-merge>
+
         <cobertura-report 
             format="html" 
             datafile="${dir.cov_original}/${testNo}/cobertura.ser" 

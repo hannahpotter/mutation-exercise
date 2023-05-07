@@ -27,6 +27,14 @@ public class Formatter implements JUnitResultFormatter {
 
 	@Override
 	public void endTestSuite(JUnitTest arg0) throws BuildException {
+		File original = new File("cobertura.ser");
+ 		File copy = new File("initial-cobertura.ser");
+		try {
+			original.delete();
+        	Files.copy(copy.toPath(), original.toPath());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -47,8 +55,6 @@ public class Formatter implements JUnitResultFormatter {
  		File copy = new File("initial-cobertura.ser");
 		try {
         	Files.copy(original.toPath(), copy.toPath());
-        	//original.delete();
-			//original.createNewFile();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -71,10 +77,10 @@ public class Formatter implements JUnitResultFormatter {
 		try {
 			folder.mkdirs();
         	Files.copy(original.toPath(), new_result.toPath());
-        	//original.delete();
+        	original.delete();
 
-			//File copy = new File("initial-cobertura.ser");
-			//Files.copy(copy.toPath(), original.toPath());
+			File copy = new File("initial-cobertura.ser");
+			Files.copy(copy.toPath(), original.toPath());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
