@@ -136,7 +136,7 @@
             <classpath path=".instrumented"/>
             <classpath path="bin/TriangleTest.class"/>
             <classpath location="lib/junit-4.11.jar"/>
-            <classpath location="lib/cobertura-2.0.3.jar"/>
+            <classpath refid="cobertura.classpath"/>
             
             <test name="triangle.TriangleTest" methods="${testMethods}"></test>
         </junit>

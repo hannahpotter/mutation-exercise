@@ -3,6 +3,8 @@ package formatter;
 import java.io.File;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
@@ -14,8 +16,10 @@ import org.apache.tools.ant.taskdefs.optional.junit.JUnitTest;
 import net.sourceforge.cobertura.coveragedata.CoverageDataFileHandler;
 import net.sourceforge.cobertura.coveragedata.ProjectData;
 import net.sourceforge.cobertura.coveragedata.TouchCollector;
+import net.sourceforge.cobertura.reporting.Main;
 
 public class Formatter implements JUnitResultFormatter {
+    private static final String OUT_DIR = "coverage_original_results";
     private int testNo = 1;
 
     @Override
@@ -34,7 +38,7 @@ public class Formatter implements JUnitResultFormatter {
     @Override
     public void endTest(Test test) {
         // No need to create the directories; Cobertura does this during export
-        exportAndResetCoverageData("coverage_original_results/" + testNo+ "/cobertura.ser");
+        exportAndResetCoverageData(testNo);
 
         testNo++;
     }
@@ -46,11 +50,13 @@ public class Formatter implements JUnitResultFormatter {
      * this but it uses a very conservative 1-second sleep to avoid data
      * corruption. This is unnecessary in our use case.
      */
-    private void exportAndResetCoverageData(String serFile) {
+    private void exportAndResetCoverageData(int testNo) {
+        String testNoStr = "" + testNo;
         // Get current coverage data and write to disk.
         ProjectData projectData = ProjectData.getGlobalProjectData();
         TouchCollector.applyTouchesOnProjectData(projectData);
-        CoverageDataFileHandler.saveCoverageData(projectData, new File(serFile));
+        Path serPath = Paths.get(OUT_DIR, testNoStr, "cobertura.ser");
+        CoverageDataFileHandler.saveCoverageData(projectData, serPath.toFile());
 
         // Reset the global coverage data.
         try {
@@ -58,6 +64,19 @@ public class Formatter implements JUnitResultFormatter {
             f.setAccessible(true);
             f.set(null, new ProjectData());
         } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        // Export the incremental coverage report.
+        try {
+            Main.main(new String[]{
+                "--format", "html",
+                "--datafile", serPath.toString(),
+                "--destination", Paths.get(OUT_DIR, testNoStr).toString(),
+                "src"}
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }

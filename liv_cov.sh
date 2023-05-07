@@ -22,10 +22,10 @@ echo "testMethods=$method" > foo.properties )
 
 $MAJOR_HOME/bin/ant coverageOriginal
 
-grep ,triangle.TriangleTest mutation_results/testMap.csv | while read -r testLine ; do
-    testNo=$(echo $testLine | cut -d ',' -f1)
-    $MAJOR_HOME/bin/ant coverageReportOriginal -DtestNo=$testNo
-done
+#grep ,triangle.TriangleTest mutation_results/testMap.csv | while read -r testLine ; do
+#    testNo=$(echo $testLine | cut -d ',' -f1)
+#    $MAJOR_HOME/bin/ant coverageReportOriginal -DtestNo=$testNo
+#done
 
 #grep ,triangle.TriangleTest mutation_results/testMap.csv | while read -r testLine ; do
 #    testNo=$(echo $testLine | cut -d ',' -f1)
