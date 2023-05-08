@@ -21,9 +21,12 @@
         <delete>
             <fileset dir="." includes="*.ser"/>
         </delete>
-       <delete dir="${dir.cov_original}"/>
-       <delete dir="${dir.cov_mutant}"/>
        <delete dir="${dir.mut}"/>
+       <antcall target="cleanCoverageOriginal"/>
+    </target>
+
+    <target name="cleanCoverageOriginal" description="Clean">
+        <delete dir="${dir.cov_mutant}"/>
     </target>
 
 <!-- Target to initialize build -->
@@ -105,27 +108,28 @@
     </target>
 
 <!-- The specific test target -->
-    <target name="testSpecificMutant" depends="compile.tests" description="Run all unit test cases">
+    <target name="testMutant" depends="compile.tests" description="Run all unit test cases">
         <echo message="Running unit tests ..."/>
         <echo message="==================================================="/>
-        <echo message="${testMethod}"/>
         <junit  printsummary="true"
                   showoutput="true"
                         fork="true"
                haltonfailure="true">
-            <formatter type="plain" usefile="false"/>
+            <formatter classname="formatter.Formatter" usefile="no" />
             <classpath path=".instrumented"/>
             <classpath path="bin"/>
             <classpath path=".mutated/mutants/${mutNo}/triangle"/>
             <classpath location="lib/junit-4.11.jar"/>
             <classpath location="lib/cobertura-2.0.3.jar"/>
             
+            <sysproperty key="OUT_DIR" value=".mutated/mutants/${mutNo}/${dir.cov_mutant}" />
+            <sysproperty key="SRC_DIR" value=".mutated/mutants/${mutNo}" />
             <test name="triangle.TriangleTest" methods="${testMethods}"></test>
         </junit>
     </target>
 
     <!-- The specific test target -->
-    <target name="testSpecificOriginal" depends="compile.tests" description="Run all unit test cases">
+    <target name="testOriginal" depends="compile.tests" description="Run all unit test cases">
         <echo message="Running unit tests ..."/>
         <echo message="==================================================="/>
         <junit  printsummary="true"
@@ -181,12 +185,12 @@
 
 <!-- Coverage analysis -->
     <target name="coverageMutant" description="Run coverage analysis">
-        <!--<antcall target="clean" />-->
         <antcall target="compile" />
         <antcall target="compileMutant" />
+        <antcall target="compileFormatter"/>
 
-        <delete dir=".mutated/mutants/${mutNo}/${dir.cov_mutant}/${testNo}"/>
-        <mkdir dir=".mutated/mutants/${mutNo}/${dir.cov_mutant}/${testNo}" />
+        <delete dir=".mutated/mutants/${mutNo}/${dir.cov_mutant}"/>
+        <mkdir dir=".mutated/mutants/${mutNo}/${dir.cov_mutant}" />
 
         <delete>
             <fileset dir="." includes="*.ser"/>
@@ -201,29 +205,10 @@
                 <include name="**/**.class"/>
             </fileset>
         </cobertura-instrument>
-        <antcall target="testSpecificMutant" />
-        <cobertura-report format="html" destdir=".mutated/mutants/${mutNo}/${dir.cov_mutant}/${testNo}" srcdir=".mutated/mutants/${mutNo}" />
-
-        <echo message="=================================================================================="/>
-        <echo message="Coverage report mutant (html): .mutated/mutants/${mutNo}/${dir.cov_mutant}/${testNo}/triangle.Triangle.html"/>
-        <echo message="=================================================================================="/>
-
-        <delete dir=".mutated/mutants/${mutNo}/${dir.cov_mutant}/${testNo}/css"/>
-        <delete dir=".mutated/mutants/${mutNo}/${dir.cov_mutant}/${testNo}/images"/>
-        <delete dir=".mutated/mutants/${mutNo}/${dir.cov_mutant}/${testNo}/js"/>
-        <delete file=".mutated/mutants/${mutNo}/${dir.cov_mutant}/${testNo}/frame-packages.html"/>
-        <delete file=".mutated/mutants/${mutNo}/${dir.cov_mutant}/${testNo}/frame-sourcefiles-triangle.html"/>
-        <delete file=".mutated/mutants/${mutNo}/${dir.cov_mutant}/${testNo}/frame-sourcefiles.html"/>
-        <delete file=".mutated/mutants/${mutNo}/${dir.cov_mutant}/${testNo}/frame-summary-triangle.html"/>
-        <delete file=".mutated/mutants/${mutNo}/${dir.cov_mutant}/${testNo}/frame-summary.html"/>
-        <delete file=".mutated/mutants/${mutNo}/${dir.cov_mutant}/${testNo}/help.html"/>
-        <delete file=".mutated/mutants/${mutNo}/${dir.cov_mutant}/${testNo}/index.html"/>
-        <delete file=".mutated/mutants/${mutNo}/${dir.cov_mutant}/${testNo}/triangle.TriangleTest.html"/>
-
+        <antcall target="testMutant" />
     </target>
 
     <target name="coverageOriginal" description="Run coverage analysis">
-        <!--<antcall target="clean" />-->
         <antcall target="compile" />
         <antcall target="compileFormatter"/>
 
@@ -240,31 +225,6 @@
                 <include name="**/*.class"/>
             </fileset>
         </cobertura-instrument>
-        <antcall target="testSpecificOriginal" />
-        <!--<cobertura-report format="html" destdir="${dir.cov_original}/${testNo}" srcdir="src" />
-
-        <echo message="=================================================================================="/>
-        <echo message="Coverage report mutant (html): coverage_original_results/${testNo}/triangle.Triangle.html"/>
-        <echo message="=================================================================================="/>
-
-        <delete dir="${dir.cov_original}/${testNo}/css"/>
-        <delete dir="${dir.cov_original}/${testNo}/images"/>
-        <delete dir="${dir.cov_original}/${testNo}/js"/>
-        <delete file="${dir.cov_original}/${testNo}/frame-packages.html"/>
-        <delete file="${dir.cov_original}/${testNo}/frame-sourcefiles-triangle.html"/>
-        <delete file="${dir.cov_original}/${testNo}/frame-sourcefiles.html"/>
-        <delete file="${dir.cov_original}/${testNo}/frame-summary-triangle.html"/>
-        <delete file="${dir.cov_original}/${testNo}/frame-summary.html"/>
-        <delete file="${dir.cov_original}/${testNo}/help.html"/>
-        <delete file="${dir.cov_original}/${testNo}/index.html"/>
-        <delete file="${dir.cov_original}/${testNo}/triangle.TriangleTest.html"/>-->
-    </target>
-
-    <target name="coverageReportOriginal" description="Create coverage report">
-        <cobertura-report 
-            format="html" 
-            datafile="${dir.cov_original}/${testNo}/cobertura.ser" 
-            destdir="${dir.cov_original}/${testNo}" 
-            srcdir="src" />
+        <antcall target="testOriginal" />
     </target>
 </project>

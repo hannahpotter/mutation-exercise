@@ -20,6 +20,7 @@ import net.sourceforge.cobertura.reporting.Main;
 
 public class Formatter implements JUnitResultFormatter {
     private static final String OUT_DIR = "coverage_original_results";
+	private static final String SRC_DIR = "src";
     private int testNo = 1;
 
     @Override
@@ -53,9 +54,11 @@ public class Formatter implements JUnitResultFormatter {
     private void exportAndResetCoverageData(int testNo) {
         String testNoStr = "" + testNo;
         // Get current coverage data and write to disk.
+		String outDir = System.getProperty("OUT_DIR", OUT_DIR);
+		String srcDir = System.getProperty("SRC_DIR", SRC_DIR);
         ProjectData projectData = ProjectData.getGlobalProjectData();
         TouchCollector.applyTouchesOnProjectData(projectData);
-        Path serPath = Paths.get(OUT_DIR, testNoStr, "cobertura.ser");
+        Path serPath = Paths.get(outDir, testNoStr, "cobertura.ser");
         CoverageDataFileHandler.saveCoverageData(projectData, serPath.toFile());
 
         // Reset the global coverage data.
@@ -72,8 +75,8 @@ public class Formatter implements JUnitResultFormatter {
             Main.main(new String[]{
                 "--format", "html",
                 "--datafile", serPath.toString(),
-                "--destination", Paths.get(OUT_DIR, testNoStr).toString(),
-                "src"}
+                "--destination", Paths.get(outDir, testNoStr).toString(),
+                "--src", srcDir}
             );
         } catch (Exception e) {
             e.printStackTrace();
