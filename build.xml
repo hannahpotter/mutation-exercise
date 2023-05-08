@@ -116,11 +116,12 @@
                         fork="true"
                haltonfailure="true">
             <formatter classname="formatter.Formatter" usefile="no" />
+            <formatter type="plain" usefile="yes" />
             <classpath path=".instrumented"/>
             <classpath path="bin"/>
-            <classpath path=".mutated/mutants/${mutNo}/triangle"/>
+            <classpath path=".mutated/mutants/${mutNo}"/>
             <classpath location="lib/junit-4.11.jar"/>
-            <classpath location="lib/cobertura-2.0.3.jar"/>
+            <classpath refid="cobertura.classpath"/>
             
             <sysproperty key="OUT_DIR" value=".mutated/mutants/${mutNo}/${dir.cov_mutant}" />
             <sysproperty key="SRC_DIR" value=".mutated/mutants/${mutNo}" />
