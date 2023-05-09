@@ -8,7 +8,6 @@ f.close()
 
 lineNo = str(sys.argv[1])
 # Replace the target string
-#newdata = filedata.replace('<tr> <td class=\"numLineCover\">&nbsp;' + lineNo + '<', 'r<tr style=\"background-color:blue\"> <td class=\"numLineCover\">&nbsp;' + lineNo + '<')
 newdata = filedata.replace('<tr>  <td class="numLineCover">&nbsp;' + lineNo + '<', '<tr style="background-color:blue">  <td class="numLineCover">&nbsp;' + lineNo + '<')
 
 # Write the file out again

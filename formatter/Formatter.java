@@ -56,7 +56,6 @@ public class Formatter implements JUnitResultFormatter {
         // Get current coverage data and write to disk.
 		String outDir = System.getProperty("OUT_DIR", OUT_DIR);
 		String srcDir = System.getProperty("SRC_DIR", SRC_DIR);
-		System.out.println(srcDir);
         ProjectData projectData = ProjectData.getGlobalProjectData();
         TouchCollector.applyTouchesOnProjectData(projectData);
         Path serPath = Paths.get(outDir, testNoStr, "cobertura.ser");

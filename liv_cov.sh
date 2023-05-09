@@ -2,9 +2,11 @@
 
 MAJOR_HOME="lib/major"
 
+# Run mutation testing
 $MAJOR_HOME/bin/ant mutation
 echo Live mutants: $(grep ,LIVE mutation_results/killed.csv | cut -f1 -d',')
 
+# Generate all the coverage reports
 method=""
 grep ,triangle.TriangleTest mutation_results/testMap.csv | ( while read -r testLine ; do
     testNo=$(echo $testLine | cut -d ',' -f1)
@@ -26,3 +28,5 @@ grep ,LIVE mutation_results/killed.csv | cut -f1 -d',' | while read -r mutNo ; d
     echo $mutNo
     $MAJOR_HOME/bin/ant coverageMutant -DmutNo=$mutNo
 done
+
+./make_report.sh
