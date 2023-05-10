@@ -1,10 +1,11 @@
-package formatter;
-
 import java.io.File;
+import java.io.FileWriter;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.ArrayList;
 
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
@@ -19,9 +20,10 @@ import net.sourceforge.cobertura.coveragedata.TouchCollector;
 import net.sourceforge.cobertura.reporting.Main;
 
 public class Formatter implements JUnitResultFormatter {
-    private static final String OUT_DIR = "coverage_original_results";
-	private static final String SRC_DIR = "src";
+    private static final String OUT_DIR = System.getProperty("OUT_DIR", "coverage_original_results");
+    private static final String SRC_DIR = System.getProperty("SRC_DIR", "src");
     private int testNo = 1;
+    private List<String> tests = new ArrayList<String>(32);
 
     @Override
     public void startTestSuite(JUnitTest junitTest) throws BuildException { }
@@ -31,6 +33,21 @@ public class Formatter implements JUnitResultFormatter {
         // No need to export the coverage data again when the JVM exits.
         // TODO: The thread still runs when the JVM shuts down.
         ProjectData.turnOffAutoSave();
+
+        StringBuffer buf = new StringBuffer();
+        int index = 1;
+        for (String testName : tests) {
+          buf.append(index++ + "," + testName + "\n");
+        }
+
+        try {
+            FileWriter fw = new FileWriter(Paths.get(OUT_DIR, "testMap.csv").toFile());
+            fw.write(buf.toString());
+            fw.flush();
+            fw.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -38,6 +55,7 @@ public class Formatter implements JUnitResultFormatter {
 
     @Override
     public void endTest(Test test) {
+        tests.add(test.toString());
         // No need to create the directories; Cobertura does this during export
         exportAndResetCoverageData(testNo);
 
@@ -54,11 +72,9 @@ public class Formatter implements JUnitResultFormatter {
     private void exportAndResetCoverageData(int testNo) {
         String testNoStr = "" + testNo;
         // Get current coverage data and write to disk.
-		String outDir = System.getProperty("OUT_DIR", OUT_DIR);
-		String srcDir = System.getProperty("SRC_DIR", SRC_DIR);
         ProjectData projectData = ProjectData.getGlobalProjectData();
         TouchCollector.applyTouchesOnProjectData(projectData);
-        Path serPath = Paths.get(outDir, testNoStr, "cobertura.ser");
+        Path serPath = Paths.get(OUT_DIR, testNoStr, "cobertura.ser");
         CoverageDataFileHandler.saveCoverageData(projectData, serPath.toFile());
 
         // Reset the global coverage data.
@@ -75,8 +91,8 @@ public class Formatter implements JUnitResultFormatter {
             Main.main(new String[]{
                 "--format", "html",
                 "--datafile", serPath.toString(),
-                "--destination", Paths.get(outDir, testNoStr).toString(),
-                srcDir}
+                "--destination", Paths.get(OUT_DIR, testNoStr).toString(),
+                SRC_DIR}
             );
         } catch (Exception e) {
             e.printStackTrace();

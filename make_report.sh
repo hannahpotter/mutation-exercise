@@ -45,4 +45,4 @@ grep ,LIVE mutation_results/killed.csv | cut -f1 -d',' | while read -r mutNo ; d
     echo "mut_tests.set(${mutNo}, mut_${mutNo});\n" >> $DEF_FILE
 done
 
-echo "REPORT GENERATED: mutant_report/index.html"
+echo "DONE: mutant_report/index.html"
