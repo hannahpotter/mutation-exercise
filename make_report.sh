@@ -5,8 +5,10 @@ HEADER="<html><head><link title=\"Style\" type=\"text/css\" rel=\"stylesheet\" h
 FOOTER="</body></html>"
 DEF_FILE="mutant_report/js/def.js"
 
-rmdir mutant_report/coverage/original
-rmdir mutant_report/coverage/mutants
+echo "GENERATING REPORT..."
+
+rm -r mutant_report/coverage/original
+rm -r mutant_report/coverage/mutants
 mkdir mutant_report/coverage/original
 mkdir mutant_report/coverage/mutants
 
@@ -35,9 +37,12 @@ grep ,LIVE mutation_results/killed.csv | cut -f1 -d',' | while read -r mutNo ; d
         sed -n 20,100p .mutated/mutants/${mutNo}/coverage_results/${testNo}/triangle.Triangle.html >> mutant_report/coverage/mutants/${mutNo}-${testNo}-triangle.html
         echo $FOOTER >> mutant_report/coverage/mutants/${mutNo}-${testNo}-triangle.html
 
+        lineNum=$(grep ^$mutNo: mutation_results/mutants.log | grep -Eo "classify:[0-9]+" | grep -Eo '[0-9]+')
+        python3 pretty.py mutant_report/coverage/mutants/${mutNo}-${testNo}-triangle.html $lineNum
+
         echo "mut_${mutNo}.push({testNo: ${testNo}, testName: \"${testMethod}\"});" >> $DEF_FILE
     done 
     echo "mut_tests.set(${mutNo}, mut_${mutNo});\n" >> $DEF_FILE
 done
 
-
+echo "REPORT GENERATED: mutant_report/index.html"

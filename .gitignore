@@ -4,8 +4,9 @@ mutation_results/
 */.DS_Store
 .DS_Store
 coverage_original_results/
-mutant_report/coverage/mutants/*
-mutant_report/coverage/original/*
+mutant_report/coverage/mutants/*.html
+mutant_report/coverage/original/*.html
+mutant_report/js/def.js
 cobertura.ser
 initial-cobertura.ser
 foo.properties

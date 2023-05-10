@@ -12,6 +12,49 @@ function setPanes() {
     document.getElementById("panes").innerHTML= original + mutant;
 }
 
+function setExpressions() {
+    originalPath = 'static_info/' + mutNo + '/expressionOriginal.svg';
+    mutantPath = 'static_info/' + mutNo + '/expressionMutant.svg';
+    original = document.createElement('img');
+    original.src = originalPath;
+    mutant = document.createElement('img');
+    mutant.src = mutantPath;
+    const element = document.getElementById("expressions");
+    element.replaceChildren('');
+    element.appendChild(original);
+    element.appendChild(mutant);
+}
+
+function setASTs() {
+    originalPath = 'static_info/' + mutNo + '/visualOriginal.svg';
+    mutantPath = 'static_info/' + mutNo + '/visualMutant.svg';
+    original = document.createElement('img');
+    original.src = originalPath;
+    mutant = document.createElement('img');
+    mutant.src = mutantPath;
+    const element = document.getElementById("asts");
+    element.replaceChildren('');
+    element.appendChild(original);
+    element.appendChild(mutant);
+}
+
+function setTables() {
+    originalPath = 'static_info/' + mutNo + '/tableOriginal.svg';
+    mutantPath = 'static_info/' + mutNo + '/tableMutant.svg';
+    original = document.createElement('img');
+    original.src = originalPath;
+    mutant = document.createElement('img');
+    mutant.src = mutantPath;
+    const element = document.getElementById("tables");
+    element.replaceChildren('');
+    element.appendChild(original);
+    element.appendChild(mutant);
+}
+
+function setNames() {
+    document.getElementById("mutant-name").innerHTML= "Mutant " + mutNo;
+}
+
 window.onload = function() {
     mutants.map(addMutants);
     setMutant(mutants[0]);
@@ -49,6 +92,10 @@ function setMutant(newMutNo) {
     tests.map(makeTestButton);
 
     setPanes();
+    setNames();
+    setASTs();
+    setExpressions();
+    setTables();
 };
 
 function makeTestButton(test) {
