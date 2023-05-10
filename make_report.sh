@@ -7,10 +7,10 @@ DEF_FILE="mutant_report/js/def.js"
 
 echo "GENERATING REPORT..."
 
-rm -r mutant_report/coverage/original
-rm -r mutant_report/coverage/mutants
-mkdir mutant_report/coverage/original
-mkdir mutant_report/coverage/mutants
+rm -rf mutant_report/coverage/original
+rm -rf mutant_report/coverage/mutants
+mkdir -p mutant_report/coverage/original
+mkdir -p mutant_report/coverage/mutants
 
 grep ,triangle.TriangleTest mutation_results/testMap.csv | while read -r testLine ; do
     testNo=$(echo $testLine | cut -d ',' -f1)
