@@ -1,5 +1,3 @@
-package formatter;
-
 import java.io.File;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
