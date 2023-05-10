@@ -1,5 +1,5 @@
 const mutants = Array.from(mut_tests.keys());
-const iframeStyle = 'style="height:720px;width:550px;"';
+const iframeStyle = 'style="height:740px;width:550px;"';
 var mutNo = null;
 var testNo = null;
 
@@ -100,7 +100,7 @@ function setMutant(newMutNo) {
 
 function makeTestButton(test) {
     let button = document.createElement("button");
-    button.innerHTML = test.testName;
+    button.innerHTML = getDisplayName(test.testName);
     button.value = test.testNo;
     if (test.testNo == testNo) {
         button.classList = ["selected"];
@@ -122,3 +122,20 @@ function selectTest(newTestNo) {
 
     setPanes();
 };
+
+function getDisplayName(testName) {
+    var input = testName.match(/\([^\]-]*/)[0];
+    input = input.replaceAll(' ', ',');
+    var output = testName.match(/INVALID|EQUILATERAL|SCALENE|ISOSCELES/)[0];
+    console.log(output);
+    if (output == 'INVALID') {
+        output = 'INV';
+    } else if (output == 'SCALENE') {
+        output = 'SCL';
+    } else if (output == 'ISOSCELES') {
+        output = 'ISO';
+    } else if (output == 'EQUILATERAL') {
+        output = 'EQI';
+    }
+    return input + '->' + output
+}

@@ -130,6 +130,10 @@ table.report td.value {
 	text-align: right;
 }
 
-.selected {
-	background:lightcoral;
+#mutNo .selected {
+	background:orange;
+}
+
+#testNo .selected {
+	background: #B2BEB5;
 }

@@ -54,7 +54,7 @@
 <!-- node6 -->
 <g id="node6" class="node">
 <title>node6</title>
-<ellipse fill="lightcoral" stroke="black" cx="171" cy="-90" rx="27" ry="18"/>
+<ellipse fill="orange" stroke="black" cx="171" cy="-90" rx="27" ry="18"/>
 <text text-anchor="middle" x="171" y="-86.3" font-family="Times,serif" font-size="14.00">==</text>
 </g>
 <!-- node6&#45;&gt;node7 -->

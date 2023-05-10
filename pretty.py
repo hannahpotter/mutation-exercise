@@ -4,14 +4,19 @@ import sys
 # Read in the file
 path = str(sys.argv[1])
 f = open(path, 'r')
-filedata = f.read()
+data = f.readlines()
 f.close()
-
-lineNo = str(sys.argv[2])
-# Replace the target string
-newdata = filedata.replace('<tr>  <td class="numLineCover">&nbsp;' + lineNo + '<', '<tr style="background-color:blue">  <td class="numLineCover">&nbsp;' + lineNo + '<')
 
 # Write the file out again
 f = open(path, 'w')
-f.write(newdata)
+
+lineNo = str(sys.argv[2])
+# Replace the target string
+for line in data:
+    print(line)
+    if line.find('<tr>  <td class="numLineCover">&nbsp;' + lineNo + '<') != -1:
+        print("FOUND")
+        line = line.replace('<pre class="src">', '<pre class="src" style="background:orange;">')
+    f.write(line)
+
 f.close()

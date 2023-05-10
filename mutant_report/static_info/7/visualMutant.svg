@@ -48,7 +48,7 @@
 <!-- node8 -->
 <g id="node5" class="node">
 <title>node8</title>
-<ellipse fill="lightcoral" stroke="black" cx="243" cy="-18" rx="27" ry="18"/>
+<ellipse fill="orange" stroke="black" cx="243" cy="-18" rx="27" ry="18"/>
 <text text-anchor="middle" x="243" y="-14.3" font-family="Times,serif" font-size="14.00">&#45;1</text>
 </g>
 <!-- node6 -->
