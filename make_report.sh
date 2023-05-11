@@ -19,8 +19,16 @@ grep ,triangle.TriangleTest mutation_results/testMap.csv | while read -r testLin
     end=$(expr $len - 2)
     testMethod=$(echo $testName | cut -c23-$end)
 
+    line=$(echo $testMethod | grep -o . | grep -n ':')
+    len=$(echo $line | wc -c)
+    end=$(expr $len - 3)
+    line=$(echo $line | cut -c1-$end)
+    line=$(expr $line - 1)
+    innerNumber=$(echo $testMethod | cut -c14-$line)
+    coverageTestNo=$(grep "\[${innerNumber}:" coverage_original_results/testMap.csv | cut -d ',' -f1)
+
     echo $HEADER > mutant_report/coverage/original/${testNo}-triangle.html
-    sed -n 20,100p coverage_original_results/${testNo}/triangle.Triangle.html >> mutant_report/coverage/original/${testNo}-triangle.html
+    sed -n 20,100p coverage_original_results/${coverageTestNo}/triangle.Triangle.html >> mutant_report/coverage/original/${testNo}-triangle.html
     echo $FOOTER >> mutant_report/coverage/original/${testNo}-triangle.html
 done 
 
@@ -33,8 +41,16 @@ grep ,LIVE mutation_results/killed.csv | cut -f1 -d',' | while read -r mutNo ; d
         end=$(expr $len - 2)
         testMethod=$(echo $testName | cut -c23-$end)
 
+        line=$(echo $testMethod | grep -o . | grep -n ':')
+        len=$(echo $line | wc -c)
+        end=$(expr $len - 3)
+        line=$(echo $line | cut -c1-$end)
+        line=$(expr $line - 1)
+        innerNumber=$(echo $testMethod | cut -c14-$line)
+        coverageTestNo=$(grep "\[${innerNumber}:" .mutated/mutants/${mutNo}/coverage_results/testMap.csv | cut -d ',' -f1)
+
         echo $HEADER > mutant_report/coverage/mutants/${mutNo}-${testNo}-triangle.html
-        sed -n 20,100p .mutated/mutants/${mutNo}/coverage_results/${testNo}/triangle.Triangle.html >> mutant_report/coverage/mutants/${mutNo}-${testNo}-triangle.html
+        sed -n 20,100p .mutated/mutants/${mutNo}/coverage_results/${coverageTestNo}/triangle.Triangle.html >> mutant_report/coverage/mutants/${mutNo}-${testNo}-triangle.html
         echo $FOOTER >> mutant_report/coverage/mutants/${mutNo}-${testNo}-triangle.html
 
         lineNum=$(grep ^$mutNo: mutation_results/mutants.log | grep -Eo "classify:[0-9]+" | grep -Eo '[0-9]+')
