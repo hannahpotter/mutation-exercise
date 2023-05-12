@@ -42,16 +42,16 @@ provide additional information:
     - *testMap.csv*: a mapping from test id (TestNo) to test name.
 
 ##### Inspecting a mutant - research version
-`ant setup` must be run before the first time `make_report.sh` is run. It does **not** need to be run before each subsequent run of `make_report.sh`.
+**After** running `mutation.sh`, `ant setup` must then be run before the first time `mutant_info.sh` is run. It does **not** need to be run before each subsequent run of `mutant_info.sh`.
 
-To run the mutant visualization tool run `make_report.sh`. This will generate a web-based report at `mutant_report/index.html`. This can be opened in any web browser.
+To run the mutant visualization tool run `mutant_info.sh`. This will generate a web-based report at `mutant_report/index.html`. This can be opened in any web browser.
 
 You can select any live mutant. When a live mutant is selected, you will see:
 - the original and mutated expression (with additional parentheses to clarify order of operations)
 - the original and mutated expression ASTs with the mutated node(s) highlighted 
-- truth tables for reasoning about local conditions that must be true at the expression to observe the mutant. Blue and orange cells in a row highlight truth values that must hold for **state infection** and **propogation**. Yellow cells indicate other conditions that must also hold. So you are trying to find a colored row that can be satisfied (note: you should consider the two tables as one - you must satisfy the whole row across both the original and mutated tables) that additionally will result in a different return value for the function.
+- truth tables for reasoning about local conditions that must be true at the expression to observe the mutant. Blue and orange cells in a row highlight truth values that must hold for **state infection** and **propogation**. Yellow cells indicate other conditions that must also hold. Thus, you are trying to find a colored row that can be satisfied (note: you should consider the two tables as one - you must satisfy the whole row across both the original and mutated tables) that additionally will result in a different return value for the function.
 - the tests that cover (but do not detect) the mutant. You can select any such test. When a test is selected for a given mutant, you will see:
-    - the Cobertura code coverage reports for both the original and mutant programs when that test is executed. This allows you to reason about the execution trace of a test. (note: you can see detailed information about the coverage of conditions by hovering over the condition).
+    - the Cobertura code coverage reports for both the original and mutant programs when that test is executed. This allows you to reason about the execution trace of a test (note: you can see detailed information about the coverage of conditions by hovering over the condition).
 
 ##### Inspecting a mutant - old version
 
