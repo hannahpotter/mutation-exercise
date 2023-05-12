@@ -42,8 +42,6 @@ provide additional information:
     - *testMap.csv*: a mapping from test id (TestNo) to test name.
 
 ##### Inspecting a mutant - research version
-**After** running `mutation.sh`, `ant setup` must then be run before the first time `mutant_info.sh` is run. It does **not** need to be run before each subsequent run of `mutant_info.sh`.
-
 To run the mutant visualization tool run `mutant_info.sh`. This will generate a web-based report at `mutant_report/index.html`. This can be opened in any web browser.
 
 You can select any live mutant. When a live mutant is selected, you will see:
