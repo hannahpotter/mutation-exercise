@@ -54,8 +54,8 @@
 <!-- node6 -->
 <g id="node6" class="node">
 <title>node6</title>
-<ellipse fill="orange" stroke="black" cx="171" cy="-90" rx="27" ry="18"/>
-<text text-anchor="middle" x="171" y="-86.3" font-family="Times,serif" font-size="14.00">&lt;</text>
+<ellipse fill="lightgrey" stroke="black" cx="171" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="171" y="-86.3" font-family="Times,serif" font-size="14.00">&lt;=</text>
 </g>
 <!-- node6&#45;&gt;node7 -->
 <g id="edge3" class="edge">
@@ -102,8 +102,8 @@
 <!-- node9 -->
 <g id="node10" class="node">
 <title>node9</title>
-<ellipse fill="lightgrey" stroke="black" cx="243" cy="-162" rx="27" ry="18"/>
-<text text-anchor="middle" x="243" y="-158.3" font-family="Times,serif" font-size="14.00">&lt;=</text>
+<ellipse fill="orange" stroke="black" cx="243" cy="-162" rx="27" ry="18"/>
+<text text-anchor="middle" x="243" y="-158.3" font-family="Times,serif" font-size="14.00">==</text>
 </g>
 <!-- node9&#45;&gt;node10 -->
 <g id="edge7" class="edge">

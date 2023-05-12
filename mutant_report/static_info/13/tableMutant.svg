@@ -13,13 +13,13 @@
 <g id="node1" class="node">
 <title>table</title>
 <polygon fill="none" stroke="black" points="8,-171.5 8,-192.5 51,-192.5 51,-171.5 8,-171.5"/>
-<text text-anchor="start" x="11" y="-178.3" font-family="Times,serif" font-size="14.00">a &lt;= 0</text>
+<text text-anchor="start" x="11" y="-178.3" font-family="Times,serif" font-size="14.00" fill="orange">a &lt;= 0</text>
 <polygon fill="none" stroke="black" points="51,-171.5 51,-192.5 99,-192.5 99,-171.5 51,-171.5"/>
-<text text-anchor="start" x="54" y="-178.3" font-family="Times,serif" font-size="14.00" fill="orange">b &lt;= 0 </text>
+<text text-anchor="start" x="54" y="-178.3" font-family="Times,serif" font-size="14.00">b &lt;= 0 </text>
 <polygon fill="none" stroke="black" points="99,-171.5 99,-192.5 142,-192.5 142,-171.5 99,-171.5"/>
 <text text-anchor="start" x="102" y="-178.3" font-family="Times,serif" font-size="14.00">c &lt;= 0</text>
 <polygon fill="none" stroke="black" points="142,-171.5 142,-192.5 236,-192.5 236,-171.5 142,-171.5"/>
-<text text-anchor="start" x="145" y="-178.3" font-family="Times,serif" font-size="14.00">a &lt;= 0 || c &lt;= 0</text>
+<text text-anchor="start" x="145" y="-178.3" font-family="Times,serif" font-size="14.00">b &lt;= 0 || c &lt;= 0</text>
 <polygon fill="none" stroke="black" points="8,-150.5 8,-171.5 51,-171.5 51,-150.5 8,-150.5"/>
 <text text-anchor="start" x="18.5" y="-157.3" font-family="Times,serif" font-size="14.00">true</text>
 <polygon fill="none" stroke="black" points="51,-150.5 51,-171.5 99,-171.5 99,-150.5 51,-150.5"/>
@@ -44,14 +44,18 @@
 <text text-anchor="start" x="109.5" y="-115.3" font-family="Times,serif" font-size="14.00">true</text>
 <polygon fill="none" stroke="black" points="142,-108.5 142,-129.5 236,-129.5 236,-108.5 142,-108.5"/>
 <text text-anchor="start" x="178" y="-115.3" font-family="Times,serif" font-size="14.00">true</text>
+<polygon fill="lemonchiffon" stroke="none" points="8,-87.5 8,-108.5 51,-108.5 51,-87.5 8,-87.5"/>
 <polygon fill="none" stroke="black" points="8,-87.5 8,-108.5 51,-108.5 51,-87.5 8,-87.5"/>
 <text text-anchor="start" x="18.5" y="-94.3" font-family="Times,serif" font-size="14.00">true</text>
+<polygon fill="lemonchiffon" stroke="none" points="51,-87.5 51,-108.5 99,-108.5 99,-87.5 51,-87.5"/>
 <polygon fill="none" stroke="black" points="51,-87.5 51,-108.5 99,-108.5 99,-87.5 51,-87.5"/>
 <text text-anchor="start" x="62" y="-94.3" font-family="Times,serif" font-size="14.00">false</text>
+<polygon fill="lemonchiffon" stroke="none" points="99,-87.5 99,-108.5 142,-108.5 142,-87.5 99,-87.5"/>
 <polygon fill="none" stroke="black" points="99,-87.5 99,-108.5 142,-108.5 142,-87.5 99,-87.5"/>
 <text text-anchor="start" x="107.5" y="-94.3" font-family="Times,serif" font-size="14.00">false</text>
+<polygon fill="orange" stroke="none" points="142,-87.5 142,-108.5 236,-108.5 236,-87.5 142,-87.5"/>
 <polygon fill="none" stroke="black" points="142,-87.5 142,-108.5 236,-108.5 236,-87.5 142,-87.5"/>
-<text text-anchor="start" x="178" y="-94.3" font-family="Times,serif" font-size="14.00">true</text>
+<text text-anchor="start" x="176" y="-94.3" font-family="Times,serif" font-size="14.00">false</text>
 <polygon fill="none" stroke="black" points="8,-66.5 8,-87.5 51,-87.5 51,-66.5 8,-66.5"/>
 <text text-anchor="start" x="16.5" y="-73.3" font-family="Times,serif" font-size="14.00">false</text>
 <polygon fill="none" stroke="black" points="51,-66.5 51,-87.5 99,-87.5 99,-66.5 51,-66.5"/>
@@ -60,18 +64,14 @@
 <text text-anchor="start" x="109.5" y="-73.3" font-family="Times,serif" font-size="14.00">true</text>
 <polygon fill="none" stroke="black" points="142,-66.5 142,-87.5 236,-87.5 236,-66.5 142,-66.5"/>
 <text text-anchor="start" x="178" y="-73.3" font-family="Times,serif" font-size="14.00">true</text>
-<polygon fill="lemonchiffon" stroke="none" points="8,-45.5 8,-66.5 51,-66.5 51,-45.5 8,-45.5"/>
 <polygon fill="none" stroke="black" points="8,-45.5 8,-66.5 51,-66.5 51,-45.5 8,-45.5"/>
 <text text-anchor="start" x="16.5" y="-52.3" font-family="Times,serif" font-size="14.00">false</text>
-<polygon fill="lemonchiffon" stroke="none" points="51,-45.5 51,-66.5 99,-66.5 99,-45.5 51,-45.5"/>
 <polygon fill="none" stroke="black" points="51,-45.5 51,-66.5 99,-66.5 99,-45.5 51,-45.5"/>
 <text text-anchor="start" x="64" y="-52.3" font-family="Times,serif" font-size="14.00">true</text>
-<polygon fill="lemonchiffon" stroke="none" points="99,-45.5 99,-66.5 142,-66.5 142,-45.5 99,-45.5"/>
 <polygon fill="none" stroke="black" points="99,-45.5 99,-66.5 142,-66.5 142,-45.5 99,-45.5"/>
 <text text-anchor="start" x="107.5" y="-52.3" font-family="Times,serif" font-size="14.00">false</text>
-<polygon fill="orange" stroke="none" points="142,-45.5 142,-66.5 236,-66.5 236,-45.5 142,-45.5"/>
 <polygon fill="none" stroke="black" points="142,-45.5 142,-66.5 236,-66.5 236,-45.5 142,-45.5"/>
-<text text-anchor="start" x="176" y="-52.3" font-family="Times,serif" font-size="14.00">false</text>
+<text text-anchor="start" x="178" y="-52.3" font-family="Times,serif" font-size="14.00">true</text>
 <polygon fill="none" stroke="black" points="8,-24.5 8,-45.5 51,-45.5 51,-24.5 8,-24.5"/>
 <text text-anchor="start" x="16.5" y="-31.3" font-family="Times,serif" font-size="14.00">false</text>
 <polygon fill="none" stroke="black" points="51,-24.5 51,-45.5 99,-45.5 99,-24.5 51,-24.5"/>
