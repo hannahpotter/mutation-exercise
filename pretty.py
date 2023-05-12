@@ -14,7 +14,7 @@ lineNo = str(sys.argv[2])
 # Replace the target string
 for line in data:
     if line.find('<tr>  <td class="numLineCover">&nbsp;' + lineNo + '<') != -1:
-        line = line.replace('<pre class="src">', '<pre class="src" style="background:orange;">')
+        line = line.replace('</pre>', '<span style="color:orange;">      <--Mutated</span></pre>')
     f.write(line)
 
 f.close()
