@@ -1,4 +1,3 @@
-.instrumented
 coverage_results/
 mutation_results/
 */.DS_Store
@@ -12,6 +11,5 @@ initial-cobertura.ser
 foo.properties
 bin/
 .mutated/mutants/*/coverage_results/
-.mutated/mutants/*/triangle/*.class
 src/triangle/*.class
 mutant_report/report.log
