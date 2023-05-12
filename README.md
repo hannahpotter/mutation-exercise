@@ -42,9 +42,9 @@ provide additional information:
     - *testMap.csv*: a mapping from test id (TestNo) to test name.
 
 ##### Inspecting a mutant - research version
-`ant setup` must be run before the first time `liv_cov.sh` is run. It does **not** need to be run before each subsequent run of `liv_cov.sh`.
+`ant setup` must be run before the first time `make_report.sh` is run. It does **not** need to be run before each subsequent run of `make_report.sh`.
 
-To run the mutant visualization tool run `liv_cov.sh`. This will generate a web-based report at `mutant_report/index.html`. This can be opened in any web browser.
+To run the mutant visualization tool run `make_report.sh`. This will generate a web-based report at `mutant_report/index.html`. This can be opened in any web browser.
 
 You can select any live mutant. When a live mutant is selected, you will see:
 - the original and mutated expression (with additional parentheses to clarify order of operations)
