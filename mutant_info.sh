@@ -59,7 +59,7 @@ grep ,triangle.TriangleTest mutation_results/testMap.csv | while read -r testLin
     echo $FOOTER >> mutant_report/coverage/original/${testNo}-triangle.html
 done 
 
-echo "const mut_tests = new Map();\n" > $DEF_FILE
+echo "const mut_tests = new Map();" > $DEF_FILE
 grep ,LIVE mutation_results/killed.csv | cut -f1 -d',' | while read -r mutNo ; do
     echo "const mut_${mutNo} = [];" >> $DEF_FILE
     grep ,$mutNo$ mutation_results/covMap.csv | cut -d ',' -f1 | while read -r testNo ; do
@@ -85,7 +85,7 @@ grep ,LIVE mutation_results/killed.csv | cut -f1 -d',' | while read -r mutNo ; d
 
         echo "mut_${mutNo}.push({testNo: ${testNo}, testName: \"${testMethod}\"});" >> $DEF_FILE
     done 
-    echo "mut_tests.set(${mutNo}, mut_${mutNo});\n" >> $DEF_FILE
+    echo "mut_tests.set(${mutNo}, mut_${mutNo});" >> $DEF_FILE
 done
 
 echo "DONE: mutant_report/index.html"
