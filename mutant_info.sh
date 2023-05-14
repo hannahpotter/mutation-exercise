@@ -16,9 +16,9 @@ grep ,triangle.TriangleTest mutation_results/testMap.csv | ( while read -r testL
     testMethod=$(echo $testName | cut -c23-$end)
     if [ ! -z "$method" ]
     then 
-        method+=","
+        method="$method,"
     fi
-        method+=$(echo $testName | cut -c23-$end)
+        method="$method$(echo $testName | cut -c23-$end)"
 done
 echo "testMethods=$method" > foo.properties )
 
