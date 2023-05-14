@@ -25,6 +25,11 @@
 <target name="clean" description="Clean">
     <delete dir="bin"/>
     <delete dir="formatter/bin"/>
+    <delete dir="${dir.cov}"/>
+    <delete dir=".instrumented"/>
+    <delete>
+        <fileset dir="." includes="*.ser"/>
+    </delete>
 </target>
 
 <!-- Target to clean up -->
@@ -34,6 +39,7 @@
         <fileset dir="." includes="*.ser"/>
     </delete>
    <delete dir="${dir.mut}"/>
+   <delete dir="${dir.cov}"/>
    <delete dir="${dir.cov_mutant}"/>
 </target>
 
@@ -57,6 +63,15 @@
     </cobertura-instrument>
 
     <foreach param="mutNo" list="${all.mutants}" target="compileInstrumentMutant" parallel="true" maxThreads="4" trim="true"/>
+</target>
+
+<target name="instrument">
+    <mkdir dir=".instrumented"/>
+    <cobertura-instrument failOnError="true" toDir=".instrumented">
+            <fileset dir="bin">
+                <include name="**/*.class"/>
+            </fileset>
+    </cobertura-instrument>
 </target>
 
 <!-- Compile and instrument an individual mutant -->
@@ -121,7 +136,7 @@
 </target>
 
 <!-- The original test target -->
-<target name="test" depends="compile.tests" description="Run all unit test cases">
+<target name="test" depends="compile.tests,instrument" description="Run all unit test cases">
     <echo message="Running unit tests ..."/>
     <junit  printsummary="true"
               showoutput="false"
@@ -142,7 +157,7 @@
 </target>
 
 <!-- The specific test target -->
-<target name="testMutant" depends="compile.tests" description="Run all unit test cases">
+<target name="testMutant" depends="compile.tests,instrument" description="Run all unit test cases">
     <echo message="Running unit tests ..."/>
     <echo message="==================================================="/>
     <junit  printsummary="true"
@@ -164,7 +179,7 @@
 </target>
 
 <!-- The specific test target -->
-<target name="testOriginal" depends="compile.tests" description="Run all unit test cases">
+<target name="testOriginal" depends="compile.tests,instrument" description="Run all unit test cases">
     <echo message="Running unit tests ..."/>
     <echo message="==================================================="/>
     <junit  printsummary="true"
@@ -246,20 +261,13 @@
 <!-- Coverage analysis -->
 <target name="coverage" description="Run coverage analysis">
     <antcall target="clean" />
-    <antcall target="compile" />
-    <cobertura-instrument failOnError="true" toDir=".instrumented">
-        <fileset dir="bin">
-            <include name="**/*.class"/>
-        </fileset>
-    </cobertura-instrument>
-
     <antcall target="test" />
 
     <delete dir="${dir.cov}"/>
     <mkdir dir="${dir.cov}" />
-    <cobertura-report format="html" destdir="${dir.cov}" srcdir="src" />
+    <cobertura-report format="html" destdir="${dir.cov}" srcdir="src" datafile="cobertura.ser"/>
 
-    <cobertura-report format="summaryXml" destdir="${dir.cov}" srcdir="src" />
+    <cobertura-report format="summaryXml" destdir="${dir.cov}" srcdir="src" datafile="cobertura.ser"/>
     <echo message="==================================================="/>
     <echo message="Coverage results:"/>
     <echo/>
