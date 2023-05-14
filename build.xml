@@ -148,7 +148,7 @@
         <classpath location="lib/junit-4.11.jar"/>
         <classpath location="lib/cobertura-2.0.3.jar"/>
 
-        <batchtest fork="false">
+        <batchtest fork="true">
             <fileset dir="test">
                 <include name="**/*.java"/>
             </fileset>
