@@ -4,6 +4,7 @@
 
 <!-- Directories that hold coverage and mutation results -->
 <property name="dir.mut" value="mutation_results"/>
+<property name="dir.cov" value="coverage_results"/>
 <property name="dir.cov_original" value="coverage_original_results"/>
 <property name="dir.cov_mutant" value="coverage_results"/>
 <property file="foo.properties"/>
@@ -240,6 +241,39 @@
         <fileset dir="." includes="*.ser"/>
     </delete>
     <antcall target="testOriginal" />
+</target>
+
+<!-- Coverage analysis -->
+<target name="coverage" description="Run coverage analysis">
+    <antcall target="clean" />
+    <antcall target="compile" />
+    <cobertura-instrument failOnError="true" toDir=".instrumented">
+        <fileset dir="bin">
+            <include name="**/*.class"/>
+        </fileset>
+    </cobertura-instrument>
+
+    <antcall target="test" />
+
+    <delete dir="${dir.cov}"/>
+    <mkdir dir="${dir.cov}" />
+    <cobertura-report format="html" destdir="${dir.cov}" srcdir="src" />
+
+    <cobertura-report format="summaryXml" destdir="${dir.cov}" srcdir="src" />
+    <echo message="==================================================="/>
+    <echo message="Coverage results:"/>
+    <echo/>
+    <concat>
+        <fileset dir="${dir.cov}" includes="coverage-summary.xml"/>
+        <filterchain>
+            <linecontains>
+                <contains value="coverage line"/>
+            </linecontains>
+        </filterchain>
+    </concat>
+    <echo message="==================================================="/>
+    <echo message="Coverage report (html): coverage_results/index.html"/>
+    <echo message="==================================================="/>
 </target>
 
 </project>
